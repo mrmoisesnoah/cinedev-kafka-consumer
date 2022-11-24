@@ -14,6 +14,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -26,24 +27,24 @@ public class EmailService {
     private String to;
     private final JavaMailSender emailSender;
 
-    public void sendEmail(NotaEntity notaEntity) {
+    public void sendEmail( List<NotaEntity> notasEntity) {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.setFrom(from);
             mimeMessageHelper.setTo(to);
             mimeMessageHelper.setSubject("Notas compra Ingresso");
-            mimeMessageHelper.setText(getContentFromTemplate(notaEntity), true);
+            mimeMessageHelper.setText(getContentFromTemplate(notasEntity), true);
             emailSender.send(mimeMessageHelper.getMimeMessage());
         } catch (MessagingException | IOException | TemplateException e) {
             e.printStackTrace();
         }
     }
 
-    public String getContentFromTemplate(NotaEntity notaEntity) throws IOException, TemplateException {
+    public String getContentFromTemplate( List<NotaEntity> notasEntity) throws IOException, TemplateException {
         Map<String, Object> dados = new HashMap<>();
         dados.put("texto1", "O relatório geral está disponível.");
-        dados.put("texto2", "Obrigado!");
+        dados.put("texto2", notasEntity.toString());
         dados.put("email", from);
         Template template = fmConfiguration.getTemplate("email-template.html");
         return FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);

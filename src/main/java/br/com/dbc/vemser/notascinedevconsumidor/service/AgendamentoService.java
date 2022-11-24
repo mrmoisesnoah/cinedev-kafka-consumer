@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,14 +17,12 @@ import java.util.List;
 public class AgendamentoService {
 private final EmailService emailService;
 private final NotaRepository notaRepository;
- @Scheduled(cron ="0 43 16 * * *")
+ @Scheduled(cron ="0 43 17 * * *")
          public void enviarEmailNotaFiscal(){
-     List<NotaEntity> notas = new ArrayList<>();
-     for(notaRepository.findAll(): notas){
-
-     }
-         emailService.sendEmail();
+     List<NotaEntity> notas = notaRepository.findAllByDataBetween(LocalDateTime.now().minusHours(24), LocalDateTime.now());
+     emailService.sendEmail(notas);
+     notas.stream().forEach(System.out::println);
      System.out.println("Julio é lindo");
-    }
+ }
 
 }
