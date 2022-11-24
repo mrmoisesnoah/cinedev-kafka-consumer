@@ -20,8 +20,6 @@ public class ConsumidorService {
     private final ObjectMapper objectMapper;
     private final NotaRepository notaRepository;
 
-    @Value(value = "${email.cinedev}")
-    private String email;
     @KafkaListener(
             topics = "${kafka.topic}",
             clientIdPrefix = "{$spring.kafka.consumer.group-id}",
@@ -39,9 +37,7 @@ public class ConsumidorService {
         nota.setQuantidade(1);
         nota.setPreco(notaFiscalRecebida.getPreco());
         nota.setCpf(notaFiscalRecebida.getCpf());
-        
         notaRepository.save(nota);
-
     }
 
 }
