@@ -14,10 +14,12 @@ public class NotasFiscaisCinemaDTO {
     private Integer idFilme;
     private Integer idCinema;
     private Integer idCliente;
+    private String cpf;
     private String nomeCliente;
     private String nomeFilme;
     private String nomeCinema;
     private LocalDateTime dataHora;
+    private Disponibilidade disponibilidade;
     private Double preco;
     private String ativo;
 }

@@ -35,11 +35,11 @@ public class ConsumidorService {
         nota.setNomeFilme(notaFiscalRecebida.getNomeFilme());
         nota.setNomeCinema(notaFiscalRecebida.getNomeCinema());
         nota.setIdIngresso(notaFiscalRecebida.getIdIngresso());
-        nota.setData(notaFiscalRecebida.getDataHora());
+        nota.setData(notaFiscalRecebida.getDataHora().minusHours(3));
         nota.setQuantidade(1);
         nota.setPreco(notaFiscalRecebida.getPreco());
-
-
+        nota.setCpf(notaFiscalRecebida.getCpf());
+        
         notaRepository.save(nota);
 
     }

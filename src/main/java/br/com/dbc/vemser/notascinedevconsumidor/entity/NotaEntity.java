@@ -19,6 +19,7 @@ public class NotaEntity {
         Integer idIngresso;
         String nomeFilme;
         String nomeCliente;
+        String cpf;
         String nomeCinema;
         Double preco;
         Integer quantidade;
