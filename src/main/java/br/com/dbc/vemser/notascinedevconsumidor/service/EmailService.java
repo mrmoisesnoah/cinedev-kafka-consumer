@@ -27,26 +27,31 @@ public class EmailService {
     private String to;
     private final JavaMailSender emailSender;
 
-    public void sendEmail( List<NotaEntity> notasEntity) {
+    public void sendEmail(NotaEntity notaEntity) {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.setFrom(from);
             mimeMessageHelper.setTo(to);
             mimeMessageHelper.setSubject("Notas compra Ingresso");
-            mimeMessageHelper.setText(getContentFromTemplate(notasEntity), true);
+            mimeMessageHelper.setText(getContentFromTemplate(notaEntity), true);
             emailSender.send(mimeMessageHelper.getMimeMessage());
         } catch (MessagingException | IOException | TemplateException e) {
             e.printStackTrace();
         }
     }
 
-    public String getContentFromTemplate( List<NotaEntity> notasEntity) throws IOException, TemplateException {
+    public String getContentFromTemplate(NotaEntity notaEntity) throws IOException, TemplateException {
         Map<String, Object> dados = new HashMap<>();
         dados.put("texto1", "O relatório geral está disponível.");
-        dados.put("texto2", notasEntity.toString());
+        dados.put("texto2", notaEntity.getQuantidade());
+        dados.put("texto3", notaEntity.getPreco());
+        dados.put("texto4", (notaEntity.getPreco() * 0.9));
         dados.put("email", from);
         Template template = fmConfiguration.getTemplate("email-template.html");
         return FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
     }
 }
+
+
+

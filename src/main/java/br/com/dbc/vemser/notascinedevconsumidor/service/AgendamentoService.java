@@ -17,12 +17,21 @@ import java.util.List;
 public class AgendamentoService {
 private final EmailService emailService;
 private final NotaRepository notaRepository;
- @Scheduled(cron ="0 43 17 * * *")
-         public void enviarEmailNotaFiscal(){
-     List<NotaEntity> notas = notaRepository.findAllByDataBetween(LocalDateTime.now().minusHours(24), LocalDateTime.now());
-     emailService.sendEmail(notas);
-     notas.stream().forEach(System.out::println);
-     System.out.println("Julio é lindo");
- }
+    @Scheduled(cron ="0 0 18 * * *")
+    public void enviarEmailNotaFiscal(){
+        List<NotaEntity> notas = notaRepository.findAllByDataBetween(LocalDateTime.now().minusHours(24), LocalDateTime.now());
+        NotaEntity notaFinal = new NotaEntity();
+        Double precoFinal = 0.0;
+        Integer quantidadeFinal = 0;
+        for(int i = 0; i < notas.size(); i++){
+            precoFinal += notas.get(i).getPreco();
+            quantidadeFinal += notas.get(i).getQuantidade();
+        }
+        notaFinal.setPreco(precoFinal);
+        notaFinal.setQuantidade(quantidadeFinal);
+        emailService.sendEmail(notaFinal);
+        notas.stream().forEach(System.out::println);
+        System.out.println("Julio é lindo");
+    }
 
 }
