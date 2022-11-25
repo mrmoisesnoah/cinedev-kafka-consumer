@@ -3,12 +3,10 @@ package br.com.dbc.vemser.notascinedevconsumidor.service;
 import br.com.dbc.vemser.notascinedevconsumidor.entity.NotaEntity;
 import br.com.dbc.vemser.notascinedevconsumidor.repository.NotaRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
