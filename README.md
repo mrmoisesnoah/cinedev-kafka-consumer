@@ -1,4 +1,4 @@
-# cindev-spring-consumidor
+# cindev-kafka-consumer
 
 # Sobre o projeto
 Api consumidora de Notas, através do Kafka para gerenciamento de filas e serviço de mensageira entre as aplicações.
